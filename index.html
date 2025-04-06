@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>Formulario</title>
+</head>
+<body>
+    <section>
+        <div class="form-container">
+            <h2>Formulario de Ingreso</h2>
+            <form id="medicalForm">
+                <label for="rut">RUT:</label>
+                <input type="text" id="rut" name="rut" required>
+    
+                <label for="nombres">Nombres:</label>
+                <input type="text" id="nombres" name="nombres" required>
+    
+                <label for="apellidos">Apellidos:</label>
+                <input type="text" id="apellidos" name="apellidos" required>
+    
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" required>
+    
+                <label for="ciudad">Ciudad:</label>
+                <input type="text" id="ciudad" name="ciudad" required>
+    
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" required>
+    
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+    
+                <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+    
+                <label for="estadoCivil">Estado Civil:</label>
+                <select id="estadoCivil" name="estadoCivil" required>
+                    <option value="soltero">Soltero</option>
+                    <option value="casado">Casado</option>
+                    <option value="divorciado">Divorciado</option>
+                    <option value="viudo">Viudo</option>
+                </select>
+    
+                <label for="comentarios">Comentarios:</label>
+                <textarea id="comentarios" name="comentarios"></textarea>
+    
+                <button type="button" onclick="guardarRegistro()">Guardar</button>
+                <button type="reset">Limpiar</button>
+                <button type="button" onclick="cerrarFormulario()">Cerrar</button>
+            </form>
+    
+            <br>
+            <h3>Buscar por Apellido</h3>
+            <input type="text" id="buscarApellido" placeholder="Buscar por apellido">
+            <button type="button" onclick="buscarPorApellido()">Buscar</button>
+            <ul id="resultadosBusqueda"></ul>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
