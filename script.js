@@ -1,16 +1,43 @@
 let registros = [];
 
-function guardarRegistro() {
-  const rut = document.getElementById("rut").value;
-  const nombres = document.getElementById("nombres").value;
-  const apellidos = document.getElementById("apellidos").value;
-  const direccion = document.getElementById("direccion").value;
-  const ciudad = document.getElementById("ciudad").value;
-  const telefono = document.getElementById("telefono").value;
-  const email = document.getElementById("email").value;
+function guardarRegistro(event) {
+  event.preventDefault();
+
+  const form = document.getElementById("medicalForm");
+
+  if (!form.checkValidity()) {
+    alert("Por favor completa todos los campos correctamente.");
+    return;
+  }
+
+  const rut = document.getElementById("rut").value.trim();
+  const nombres = document.getElementById("nombres").value.trim();
+  const apellidos = document.getElementById("apellidos").value.trim();
+  const direccion = document.getElementById("direccion").value.trim();
+  const ciudad = document.getElementById("ciudad").value.trim();
+  const telefono = document.getElementById("telefono").value.trim();
+  const email = document.getElementById("email").value.trim();
   const fechaNacimiento = document.getElementById("fechaNacimiento").value;
   const estadoCivil = document.getElementById("estadoCivil").value;
-  const comentarios = document.getElementById("comentarios").value;
+  const comentarios = sanitizeInput(
+    document.getElementById("comentarios").value
+  );
+
+  // Validación RUT (formato simple)
+  const rutRegex = /^\d{7,8}-[kK\d]$/;
+  if (!rutRegex.test(rut)) {
+    alert(
+      "El RUT ingresado no es válido. Formato esperado: 12345678-9 o 12345678-K."
+    );
+    return;
+  }
+
+  // Validación teléfono
+  const telefonoRegex = /^\d{7,15}$/;
+  if (!telefonoRegex.test(telefono)) {
+    alert("El teléfono debe contener solo números (7 a 15 dígitos).");
+    return;
+  }
 
   let existe = registros.some((registro) => registro.rut === rut);
 
@@ -51,7 +78,7 @@ function guardarRegistro() {
     alert("Registro guardado correctamente.");
   }
 
-  document.getElementById("medicalForm").reset();
+  form.reset();
 }
 
 function buscarPorApellido() {
@@ -59,6 +86,8 @@ function buscarPorApellido() {
     .getElementById("buscarApellido")
     .value.trim()
     .toLowerCase();
+  const resultadosBusqueda = document.getElementById("resultadosBusqueda");
+  resultadosBusqueda.innerHTML = "";
 
   if (!apellidoBusqueda) {
     alert("Por favor ingrese un apellido para buscar.");
@@ -68,8 +97,6 @@ function buscarPorApellido() {
   const resultados = registros.filter((registro) =>
     registro.apellidos.toLowerCase().includes(apellidoBusqueda)
   );
-  const resultadosBusqueda = document.getElementById("resultadosBusqueda");
-  resultadosBusqueda.innerHTML = "";
 
   if (resultados.length > 0) {
     resultados.forEach((registro) => {
@@ -86,4 +113,9 @@ function cerrarFormulario() {
   if (confirm("¿Desea cerrar el formulario?")) {
     window.close();
   }
+}
+
+// Sanitiza texto para prevenir XSS
+function sanitizeInput(str) {
+  return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }

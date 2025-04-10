@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +10,9 @@
     <section>
         <div class="form-container">
             <h2>Formulario de Ingreso</h2>
-            <form id="medicalForm">
+            <form id="medicalForm" onsubmit="guardarRegistro(event)">
                 <label for="rut">RUT:</label>
-                <input type="text" id="rut" name="rut" required>
+                <input type="text" id="rut" name="rut" required pattern="^\d{7,8}-[kK\d]$" title="Formato esperado: 12345678-9 o 12345678-K">
     
                 <label for="nombres">Nombres:</label>
                 <input type="text" id="nombres" name="nombres" required>
@@ -27,7 +27,7 @@
                 <input type="text" id="ciudad" name="ciudad" required>
     
                 <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" name="telefono" required>
+                <input type="text" id="telefono" name="telefono" required pattern="^\d{7,15}$" title="Solo números (7 a 15 dígitos)">
     
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
@@ -37,6 +37,7 @@
     
                 <label for="estadoCivil">Estado Civil:</label>
                 <select id="estadoCivil" name="estadoCivil" required>
+                    <option value="">Seleccione una opción</option>
                     <option value="soltero">Soltero</option>
                     <option value="casado">Casado</option>
                     <option value="divorciado">Divorciado</option>
@@ -46,7 +47,7 @@
                 <label for="comentarios">Comentarios:</label>
                 <textarea id="comentarios" name="comentarios"></textarea>
     
-                <button type="button" onclick="guardarRegistro()">Guardar</button>
+                <button type="submit">Guardar</button>
                 <button type="reset">Limpiar</button>
                 <button type="button" onclick="cerrarFormulario()">Cerrar</button>
             </form>
